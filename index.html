@@ -23,6 +23,18 @@
                 },
             });
         </script>
+        
+        <!-- UI SCREEN -->
+        <script>
+	window.onload = function(){    
+	      setTimeout(function(){
+		var resizeEvent = window.document.createEvent('UIEvents'); 
+		   resizeEvent.initUIEvent('resize', true, false, window, 0); 
+			window.dispatchEvent(resizeEvent);
+		}, 3000);
+	};	
+	</script>
+        
     </head>
 
     <body style="margin: 0; overflow: hidden;">
@@ -34,6 +46,13 @@
             embedded
             gesture-detector
         >
+            <a-assets>
+        	    <audio 
+                    id="sound" src="./assets/fix.mp3" 
+                    preload="auto">
+                </audio>
+ 	        </a-assets>
+            
             <a-assets>
                 <video
                     id="vid"
@@ -75,5 +94,20 @@
 
             <a-entity camera></a-entity>
         </a-scene>
+        
+        <!-- BACKSONG -->
+        <script>
+	     AFRAME.registerComponent('soundhandler', {
+	    	tick: function () {
+		   var entity = document.querySelector('[sound]');
+		 	if (document.querySelector('a-marker').object3D.visible == true) {
+		    	        entity.components.sound.playSound();
+			} else {
+		    		entity.components.sound.pauseSound();
+				}
+	     		}
+		});
+	</script>
+        
     </body>
 </html>
